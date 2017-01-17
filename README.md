@@ -62,10 +62,13 @@ sync
 help
 ```
 
-#### Current contents commands
+#### Current `contents` options
 An `--output-X` option is required.
 
-`./bin/linkman contents [option]`
+```bash
+./bin/linkman contents [option] --output-table
+```
+
 ```
 --action-album=""    Make album of the selection
 --action-rename=""   Renames the contents
@@ -160,7 +163,7 @@ use Linkman\Domain\File;
 return [
     'hooks' => [
         //'sync' => function(FileContent $fileContent, File $file) {
-            // Do something custom while syncing..
+            // Modify FileContent and/or File
         //}
     ],
 
