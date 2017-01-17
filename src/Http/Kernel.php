@@ -97,6 +97,18 @@ class Kernel
             return new CollectionResponse($this->linkman->api()->albums(), new AlbumFormatter($this->getBaseUrl()));
         });
 
+        $router->post('/albums', function(Request $request) {
+            $title = $request->getInput('title');
+
+            if(empty($title)) {
+                return new JsonResponse(['message' => "Missing 'title' value"], ResponseHeaders::HTTP_BAD_REQUEST);
+            }
+
+            $album = $this->linkman->api()->albums->create($title);
+
+            return new EntityResponse($album, new AlbumFormatter($this->getBaseUrl()));
+        });
+
         $router->get('/albums/:albumId', function (int $albumId) {
             return new EntityResponse($this->linkman->api()->album($albumId), new AlbumFormatter($this->getBaseUrl()));
         });

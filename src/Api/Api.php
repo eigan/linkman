@@ -52,14 +52,6 @@ class Api
     }
 
     /**
-     * @return Album
-     */
-    public function albumCreate($title)
-    {
-        return $this->albums->create($title);
-    }
-
-    /**
      * @return FileContent[]
      */
     public function contents($data)

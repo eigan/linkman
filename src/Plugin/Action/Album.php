@@ -33,7 +33,7 @@ class Album implements ContentActionInterface
 
     public function execute(array $contents, $argValue)
     {
-        $album = $this->api->albumCreate($argValue);
+        $album = $this->api->albums->create($argValue);
 
         foreach ($contents as $content) {
             $album->addContent($content);
