@@ -76,6 +76,10 @@ class Kernel
         $this->router->group(['path' => '/api/v1'], function (Router $router) {
             $this->register($router);
         });
+
+        $this->router->get('/favicon.ico', function() {
+            return new Response('', ResponseHeaders::HTTP_NOT_FOUND);
+        });
     }
 
     /**
