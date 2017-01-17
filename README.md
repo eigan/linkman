@@ -13,12 +13,12 @@ A concept for organizing a large collection of files, mainly photos and videos.
 - Make it updateable
 
 ## Install
-```
-git clone https://github.com/eigan/linkman.git && composer update
+```bash
+git clone https://github.com/eigan/linkman.git && composer install
 ```
 
 #### Update
-```
+```bash
 git pull
 ```
 

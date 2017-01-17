@@ -49,6 +49,11 @@ class Kernel
      */
     private $router;
 
+    /**
+     * @var Container
+     */
+    private $container;
+
     public function __construct(Linkman $linkman)
     {
         $this->linkman = $linkman;
@@ -78,7 +83,7 @@ class Kernel
      */
     private function register(Router $router)
     {
-        $router->get('/', function () {
+        $router->get('', function () {
             return new JsonResponse([
                 'linkman' => Linkman::VERSION
             ]);
@@ -305,14 +310,19 @@ class Kernel
             throw new Exception('Run start() first');
         }
 
+        $this->request = $request;
+
         $this->container->bindInstance(Request::class, $request);
 
         return $this->router->route($request);
     }
 
+    /**
+     * Takes the Request url (from handle()..) and replaces everything after /api/vN)
+     */
     private function getBaseUrl() : string
     {
-        return 'http://localhost:8181/api.php';
+        return preg_replace("/(?<=\/api\/v\d)(.*)/", '', $this->request->getFullUrl());
     }
 
     private function getCachePath() : string
