@@ -154,7 +154,7 @@ class FileContentApi
                 continue;
             }
 
-            $this->filters[$filterKey]->execute($queryBuilder, $filterValue);
+            $this->filters[$filterKey]->modify($queryBuilder, $filterValue);
         }
     }
 }
