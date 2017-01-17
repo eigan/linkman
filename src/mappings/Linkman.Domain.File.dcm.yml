@@ -1,0 +1,23 @@
+Linkman\Domain\File:
+  type: entity
+  repositoryClass: Linkman\Repositories\FileRepository
+  table: files
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    path:
+      type: string
+    synced:
+      type: datetime
+  manyToOne:
+    mount:
+      targetEntity: Linkman\Domain\Mount
+      inversedBy: files
+      indexBy: id
+    content:
+      targetEntity: Linkman\Domain\FileContent
+      inversedBy: files
+      indexBy: id
+      cascade: ["persist"]

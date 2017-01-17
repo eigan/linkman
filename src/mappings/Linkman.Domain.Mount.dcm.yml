@@ -1,0 +1,19 @@
+Linkman\Domain\Mount:
+  type: entity
+  table: mounts
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    name:
+      type: string
+      unique: true
+    adapterName:
+      type: string
+    config:
+      type: array
+  oneToMany:
+    files:
+      targetEntity: Linkman\Domain\File
+      mappedBy: mount

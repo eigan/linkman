@@ -1,0 +1,23 @@
+Linkman\Domain\Album:
+  type: entity
+  table: albums
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    title:
+      type: string
+    description:
+      type: string
+      nullable: true
+    pathMap:
+      type: string
+      nullable: true
+    expireAt:
+      type: datetime
+      nullable: true
+  manyToMany:
+    contents:
+      targetEntity: Linkman\Domain\FileContent
+      inversedBy: albums

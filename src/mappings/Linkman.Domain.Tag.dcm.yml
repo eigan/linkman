@@ -1,0 +1,17 @@
+Linkman\Domain\Tag:
+  type: entity
+  repositoryClass: Linkman\Repositories\TagRepository
+  table: tags
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    name:
+      type: string
+    displayName:
+      type: string
+  manyToMany:
+    contents:
+      targetEntity: Linkman\Domain\FileContent
+      mappedBy: tags

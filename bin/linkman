@@ -1,0 +1,14 @@
+#!/usr/bin/env php
+<?php
+
+foreach ([__DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php'] as $file) {
+    if (file_exists($file)) {
+        require $file;
+        break;
+    }
+}
+
+use Linkman\Console\Console;
+
+$app = new Console($_ENV['LINKMAN_PATH'] ?? "/.linkman/");
+$app->run();

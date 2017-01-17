@@ -1,0 +1,12 @@
+Linkman\Domain\SyncLog:
+  type: entity
+  table: sync_log
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    createdAt:
+      type: datetime
+    status:
+      type: integer

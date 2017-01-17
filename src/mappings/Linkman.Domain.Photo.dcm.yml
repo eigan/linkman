@@ -1,0 +1,39 @@
+Linkman\Domain\Photo:
+  type: entity
+  table: photos
+  fields:
+    width:
+      type: integer
+      nullable: true
+      
+    height:
+      type: integer
+      nullable: true
+
+    make:
+      type: string
+      nullable: true
+
+    model:
+      type: string
+      nullable: true
+
+    orientation:
+      type: integer
+      nullable: true
+
+    software:
+      type: string
+      nullable: true
+
+    exposureTime:
+      type: string
+      nullable: true
+
+    fNumber:
+      type: string
+      nullable: true
+
+    iso:
+      type: integer
+      nullable: true

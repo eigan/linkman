@@ -1,0 +1,53 @@
+Linkman\Domain\FileContent:
+  type: entity
+  repositoryClass: Linkman\Repositories\FileContentRepository
+  table: generic_file_content
+  inheritanceType: JOINED
+  discriminatorColumn:
+    name: discriminator
+    type: string
+    length: 255
+  discriminatorMap:
+    photo: Linkman\Domain\Photo
+    unknown: Linkman\Domain\UnknownContentType
+  indexes:
+    # the name of the index
+    filecontent_hash_idx:
+      # Columns is an array, specify multiple columns for
+      # a compound index
+      columns: [ hash ]
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    hash:
+      type: string
+    modifiedAt:
+      type: datetime
+    createdAt:
+      type: datetime
+    isHidden:
+      type: boolean
+    thumbnail:
+      type: blob
+      nullable: true
+    size:
+      type: integer
+      nullable: false
+    filetype:
+      type: string
+      nullable: false
+  oneToMany:
+    files:
+      targetEntity: Linkman\Domain\File
+      mappedBy: content
+  manyToMany:
+    tags:
+      targetEntity: Linkman\Domain\Tag
+      inversedBy: contents
+      cascade: ["persist"]
+      indexBy: "name"
+    albums:
+      targetEntity: Linkman\Domain\Album
+      mappedBy: contents

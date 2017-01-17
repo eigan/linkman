@@ -1,0 +1,4 @@
+rm linkman.db
+./bin/linkman init
+./bin/linkman mount ~/downloads downloads
+# ./bin/linkman sync

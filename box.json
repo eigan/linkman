@@ -1,0 +1,18 @@
+{
+    "alias": "linkman.phar",
+    "chmod": "0755",
+    "directories": ["src"],
+    "files": [
+    ],
+
+    "finder": [
+        {
+            "name": "*.php",
+            "exclude": ["Tests"],
+            "in": "vendor"
+        }
+    ],
+    "main": "bin/linkman",
+    "output": "linkman.phar",
+    "stub": true
+}

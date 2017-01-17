@@ -1,0 +1,3 @@
+Linkman\Domain\UnknownContentType:
+  type: entity
+  table: unknown_contents

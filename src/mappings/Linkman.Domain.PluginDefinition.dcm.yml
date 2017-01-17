@@ -1,0 +1,12 @@
+Linkman\Domain\PluginDefinition:
+  type: entity
+  table: plugin_definitions
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    className:
+      type: string
+    options:
+      type: array
