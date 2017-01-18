@@ -2,6 +2,7 @@
 
 namespace Linkman\Console;
 
+use Linkman\Console\Command\AlbumsCommand;
 use Linkman\Console\Command\ContentsCommand;
 
 use Linkman\Console\Command\HooksCommand;
@@ -54,6 +55,7 @@ class Console extends Application
         ];
 
         if ($this->linkman) {
+            $commands[] = new AlbumsCommand($this->linkman);
             $commands[] = new MountsCommand($this->linkman);
             $commands[] = new HooksCommand($this->linkman);
             $commands[] = new ContentsCommand($this->linkman);

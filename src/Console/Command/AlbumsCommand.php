@@ -2,13 +2,15 @@
 
 namespace Linkman\Console\Command;
 
-use Symfony\Component\Console\Command\Command;
+use Linkman\Console\LinkmanCommand;
+
+use Symfony\Component\Console\Helper\Table;
 
 use Symfony\Component\Console\Input\InputInterface;
 
 use Symfony\Component\Console\Output\OutputInterface;
 
-class AlbumsCommand extends Command
+class AlbumsCommand extends LinkmanCommand
 {
     protected function configure()
     {
@@ -17,5 +19,15 @@ class AlbumsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $albums = $this->linkman->api()->albums();
+
+        $table = new Table($output);
+        $table->setHeaders(['Album', 'Num contents']);
+
+        foreach ($albums as $album) {
+            $table->addRow([$album->getTitle(), count($album->getContents())]);
+        }
+
+        $table->render();
     }
 }
