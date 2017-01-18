@@ -73,6 +73,7 @@ An `--output-X` option is required.
 --action-album=""    Make album of the selection
 --action-rename=""   Renames the contents
 --action-tag=""      Adds a tag
+--action-untag=""    Remove the tag
 --filter-created=""  Filters by date
 --filter-day=""      Contents on this day
 --filter-limit=""    Limit the results
@@ -80,6 +81,7 @@ An `--output-X` option is required.
 --filter-month=""    Contents in this month
 --filter-offset=""   Offset the results
 --filter-tag=""      Filter by comma separated list of tags
+--filter-no-tags=""  Only contents having no tags
 --filter-type=""     Only of given type
 --filter-year=""     Contents in this year
 --order-created=""   Order by created date
@@ -215,7 +217,14 @@ shares # Everything shared
 
 --action-copy # Copy all files
 --action-hide
+--action-tag-remove
 
 --output-gif="[fps]" # Make a gif of the selection
+--output-compress="zip"
 ```
 
+##### Api endpoints
+```sh
+GET /albums/:album/download?format=zip
+GET /albums?first=01-01-2014&last=31-12-2014 # Albums contents within 2014
+```

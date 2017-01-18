@@ -7,14 +7,26 @@ use Linkman\Tagservice;
 
 class TagApi
 {
+
+    /**
+     * @var Tagservice
+     */
+    protected $service;
+
+    /**
+     * @var TagRepository
+     */
+    protected $repository;
+
     public function __construct(Tagservice $service, TagRepository $repository)
     {
         $this->service = $service;
         $this->repository = $repository;
     }
 
-    public function one()
+    public function one($tagName)
     {
+        return $this->repository->findByName($tagName);
     }
 
     public function all()
@@ -28,12 +40,12 @@ class TagApi
      */
     public function also($also)
     {
-        // select * from content_tag where
         return $this->all();
     }
 
-    public function create()
+    public function create($tagName)
     {
+        return $this->repository->create($tagName);
     }
 
     public function service()

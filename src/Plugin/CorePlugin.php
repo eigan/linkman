@@ -34,6 +34,7 @@ class CorePlugin extends Plugin
         $register->use(new Filter\Name());
         $register->use(new Filter\Offset());
         $register->use(new Filter\Tag());
+        $register->use(new Filter\NoTag());
         $register->use(new Filter\Type());
         $register->use(new Filter\Year());
         $register->use(new Filter\Month());
@@ -42,6 +43,7 @@ class CorePlugin extends Plugin
         $register->use(new Order\Modified());
         $register->use(new Action\Rename($this->fileservice));
         $register->use(new Action\Tag($this->tagservice));
+        $register->use(new Action\UnTag($this->tagservice));
         $register->use(new Action\Album($this->api));
         $register->use(new Output\ConsoleTable());
         $register->use(new Output\Json());
