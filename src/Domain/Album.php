@@ -87,6 +87,11 @@ class Album
         $this->contents->add($content);
     }
 
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
     public function getCreatedBy()
     {
         return $this->createdBy;

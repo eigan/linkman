@@ -2,6 +2,7 @@
 
 namespace Linkman\Http\Formatter\Domain;
 
+use DateTime;
 use Linkman\Http\Formatter\AbstractFormatter;
 
 class AlbumFormatter extends AbstractFormatter
@@ -20,7 +21,33 @@ class AlbumFormatter extends AbstractFormatter
             'contents' => [
                 'href' => $this->getHref($album).'/contents',
                 'count' => count($album->getContents())
-            ]
+            ],
+        ] + $this->getLastFirstContent($album);
+    }
+
+    private function getLastFirstContent($album)
+    {
+        $contents = $album->getContents()->toArray();
+
+        $first = array_reduce($contents, function($first, $content) {
+            if($first == null || $content->getCreatedAt() < $first) {
+                return $content->getCreatedAt();
+            }
+
+            return $first;
+        });
+
+        $last = array_reduce($contents, function($last, $content) {
+            if($last == null || $content->getCreatedAt() > $last) {
+                return $content->getCreatedAt();
+            }
+
+            return $last;
+        });
+
+        return [
+            'first' => $first->format(DateTime::ATOM),
+            'last' => $last->format(DateTime::ATOM)
         ];
     }
 
