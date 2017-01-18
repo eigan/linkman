@@ -309,6 +309,24 @@ class Kernel
             return new CollectionResponse($content->getTags(), new TagFormatter($this->getBaseUrl()));
         });
 
+        $router->delete('/contents/:contentId/tags', function(Request $request, $contentId) {
+            $content = $this->linkman->api()->content($contentId);
+
+            $tags = $request->getInput('tags');
+
+            if(!is_array($tags) || empty($tags)) {
+                return new JsonResponse(['message' => "Need 'tags' as array."], ResponseHeaders::HTTP_BAD_REQUEST);
+            }
+
+            foreach($tags as $tagName) {
+                $content->getTags()->remove($tagName);
+            }
+
+            $this->linkman->api()->flush();
+
+            return new CollectionResponse($content->getTags(), new TagFormatter($this->getBaseUrl()));
+        });
+
         $router->get('/contents/:contentId/raw', function (Request $request, int $contentId) {
             $format = $request->getInput('format', 'original');
 

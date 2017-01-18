@@ -94,34 +94,35 @@ An `--output-X` option is required.
 ### Current API
 Start dev API server with `php -S localhost:8080 api.php` in `public/` folder.
 ```
-GET  /api/v1
-GET  /api/v1/albums
-POST /api/v1/albums
-GET  /api/v1/albums/:albumId
-GET  /api/v1/albums/:albumId/contents
-POST /api/v1/albums/:albumId/contents
-GET  /api/v1/browse
-GET  /api/v1/calendar
-GET  /api/v1/calendar/:year
-GET  /api/v1/calendar/:year/contents
-GET  /api/v1/calendar/:year/months
-GET  /api/v1/calendar/:year/months/:month/contents
-GET  /api/v1/calendar/:year/months/:month/days
-GET  /api/v1/calendar/:year/months/:month/days/:day/contents
-GET  /api/v1/contents
-GET  /api/v1/contents/:contentId
-POST /api/v1/contents/:contentId
-GET  /api/v1/contents/:contentId/albums
-POST /api/v1/contents/:contentId/favorite
-GET  /api/v1/contents/:contentId/files
-GET  /api/v1/contents/:contentId/tags
-GET  /api/v1/contents/:contentId/raw
-GET  /api/v1/files
-GET  /api/v1/files/:fileId
-GET  /api/v1/mounts
-GET  /api/v1/mounts/:mountId
-GET  /api/v1/search/contents
-GET  /api/v1/tags
+GET     /api/v1
+GET     /api/v1/albums
+POST    /api/v1/albums
+GET     /api/v1/albums/:albumId
+GET     /api/v1/albums/:albumId/contents
+POST    /api/v1/albums/:albumId/contents
+GET     /api/v1/browse
+GET     /api/v1/calendar
+GET     /api/v1/calendar/:year
+GET     /api/v1/calendar/:year/contents
+GET     /api/v1/calendar/:year/months
+GET     /api/v1/calendar/:year/months/:month/contents
+GET     /api/v1/calendar/:year/months/:month/days
+GET     /api/v1/calendar/:year/months/:month/days/:day/contents
+GET     /api/v1/contents
+GET     /api/v1/contents/:contentId
+POST    /api/v1/contents/:contentId
+GET     /api/v1/contents/:contentId/albums
+POST    /api/v1/contents/:contentId/favorite
+GET     /api/v1/contents/:contentId/files
+GET     /api/v1/contents/:contentId/tags
+DELETE  /api/v1/contents/:contentId/tags
+GET     /api/v1/contents/:contentId/raw
+GET     /api/v1/files
+GET     /api/v1/files/:fileId
+GET     /api/v1/mounts
+GET     /api/v1/mounts/:mountId
+GET     /api/v1/search/contents
+GET     /api/v1/tags
 ```
 
 ### Global options
