@@ -92,7 +92,7 @@ An `--output-X` option is required.
 ```
 
 ### Current API
-Start dev API server with `php -S localhost:8080 api.php` in `public/` folder.
+Start dev API server with `php -S localhost:8080 public/api.php`.
 ```
 GET     /api/v1
 GET     /api/v1/albums
@@ -112,7 +112,6 @@ GET     /api/v1/contents
 GET     /api/v1/contents/:contentId
 POST    /api/v1/contents/:contentId
 GET     /api/v1/contents/:contentId/albums
-POST    /api/v1/contents/:contentId/favorite
 GET     /api/v1/contents/:contentId/files
 GET     /api/v1/contents/:contentId/tags
 DELETE  /api/v1/contents/:contentId/tags

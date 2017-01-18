@@ -291,10 +291,6 @@ class Kernel
             return new CollectionResponse($content->getAlbums(), new AlbumFormatter($this->getBaseUrl()));
         });
 
-        $router->post('/contents/:contentId/favorite', function ($contentId) {
-            return new EntityResponse($this->linkman->api()->content($contentId), new FileContentFormatter($this->getBaseUrl()));
-        });
-
         $router->get('/contents/:contentId/files', function ($contentId, Request $request) {
             $content = $this->linkman->api()->content($contentId);
 
