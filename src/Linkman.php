@@ -91,6 +91,10 @@ class Linkman
 
         $doctrineConfig->setDefaultRepositoryClassName(EntityRepository::class);
 
+        $doctrineConfig->addCustomDatetimeFunction('year', \DoctrineExtensions\Query\Sqlite\Year::class);
+        $doctrineConfig->addCustomDatetimeFunction('month', \DoctrineExtensions\Query\Sqlite\Month::class);
+        $doctrineConfig->addCustomDatetimeFunction('day', \DoctrineExtensions\Query\Sqlite\Day::class);
+
         $this->entityManager = EntityManager::create($conn, $doctrineConfig);
 
         $this->pluginDefinitions = $this->entityManager->getRepository(PluginDefinition::class);

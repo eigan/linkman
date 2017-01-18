@@ -157,4 +157,71 @@ class FileContentApi
             $this->filters[$filterKey]->modify($queryBuilder, $filterValue);
         }
     }
+
+    public function yearsCount()
+    {
+        $queryBuilder = $this->repository->createQueryBuilder('c');
+
+        $queryBuilder->select('count(c.id) as num');
+        $queryBuilder->addSelect('YEAR(c.createdAt) as y');
+        $queryBuilder->groupBy('y');
+
+        $years = $queryBuilder->getQuery()->getScalarResult();
+
+        return array_map(function($year) {
+            return [
+                'year' => (int) $year['y'],
+                'count' => (int) $year['num']
+            ];
+        }, $years);
+    }
+
+    public function monthsCount($year)
+    {
+        $queryBuilder = $this->repository->createQueryBuilder('c');
+
+        $queryBuilder->select('count(c.id) as num');
+        $queryBuilder->addSelect('YEAR(c.createdAt) as y');
+        $queryBuilder->addSelect('MONTH(c.createdAt) as m');
+        $queryBuilder->groupBy('y, m');
+        $queryBuilder->andWhere('y = :year');
+        $queryBuilder->setParameter('year', $year);
+
+        $years = $queryBuilder->getQuery()->getScalarResult();
+
+        return array_map(function($year) {
+            return [
+                'year' => (int) $year['y'],
+                'month' => (int) $year['m'],
+                'count' => (int) $year['num']
+            ];
+        }, $years);
+    }
+
+    public function daysCount($year, $month)
+    {
+        $queryBuilder = $this->repository->createQueryBuilder('c');
+
+        $queryBuilder->select('count(c.id) as num');
+        $queryBuilder->addSelect('YEAR(c.createdAt) as y');
+        $queryBuilder->addSelect('MONTH(c.createdAt) as m');
+        $queryBuilder->addSelect('DAY(c.createdAt) as d');
+        $queryBuilder->groupBy('y, m, d');
+        $queryBuilder->andWhere('y = :year');
+        $queryBuilder->setParameter('year', $year);
+
+        $queryBuilder->andWhere('m = :month');
+        $queryBuilder->setParameter('month', $month);
+
+        $years = $queryBuilder->getQuery()->getScalarResult();
+
+        return array_map(function($year) {
+            return [
+                'year' => (int) $year['y'],
+                'month' => (int) $year['m'],
+                'day' => (int) $year['d'],
+                'count' => (int) $year['num']
+            ];
+        }, $years);
+    }
 }

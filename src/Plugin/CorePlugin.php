@@ -29,11 +29,14 @@ class CorePlugin extends Plugin
     public function register($register)
     {
         $register->use(new Filter\CreatedFilter());
+        $register->use(new Filter\Day());
         $register->use(new Filter\Limit());
         $register->use(new Filter\Name());
         $register->use(new Filter\Offset());
         $register->use(new Filter\Tag());
         $register->use(new Filter\Type());
+        $register->use(new Filter\Year());
+        $register->use(new Filter\Month());
         $register->use(new Order\Latest());
         $register->use(new Order\Created());
         $register->use(new Order\Modified());

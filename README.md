@@ -74,11 +74,14 @@ An `--output-X` option is required.
 --action-rename=""   Renames the contents
 --action-tag=""      Adds a tag
 --filter-created=""  Filters by date
+--filter-day=""      Contents on this day
 --filter-limit=""    Limit the results
 --filter-name=""     Match the path of the file
+--filter-month=""    Contents in this month
 --filter-offset=""   Offset the results
 --filter-tag=""      Filter by comma separated list of tags
 --filter-type=""     Only of given type
+--filter-year=""     Contents in this year
 --order-created=""   Order by created date
 --order-latest       Order by latest (modified)
 --order-modified=""  Order by modified date
@@ -91,10 +94,18 @@ Start dev API server with `php -S localhost:8080 api.php` in `public/` folder.
 ```
 GET  /api/v1
 GET  /api/v1/albums
+POST /api/v1/albums
 GET  /api/v1/albums/:albumId
 GET  /api/v1/albums/:albumId/contents
 POST /api/v1/albums/:albumId/contents
 GET  /api/v1/browse
+GET  /api/v1/calendar
+GET  /api/v1/calendar/:year
+GET  /api/v1/calendar/:year/contents
+GET  /api/v1/calendar/:year/months
+GET  /api/v1/calendar/:year/months/:month/contents
+GET  /api/v1/calendar/:year/months/:month/days
+GET  /api/v1/calendar/:year/months/:month/days/:day/contents
 GET  /api/v1/contents
 GET  /api/v1/contents/:contentId
 POST /api/v1/contents/:contentId

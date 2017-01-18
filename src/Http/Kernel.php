@@ -149,6 +149,94 @@ class Kernel
             return new CollectionResponse($files, new DirectoryBrowserFormatter($this->getBaseUrl()));
         });
 
+        $router->get('/calendar', function() {
+            $years = $this->linkman->api()->contents->yearsCount();
+
+            $years = array_map(function($year) {
+                return [
+                    'year' => $year['year'],
+                    'href' => $this->getBaseUrl() . '/calendar/' . $year['year'],
+                    'months' => [
+                        'href' => $this->getBaseUrl() . '/calendar/' . $year['year'] . '/months',
+                    ],
+                    'contents' => [
+                        'href' => $this->getBaseUrl() . '/calendar/' . $year['year'] . '/contents',
+                        'count' => $year['count']
+                    ]
+                ];
+            }, $years);
+
+            return new JsonResponse($years);
+        });
+
+        // TODO: ?embed=days
+        $router->get('/calendar/:year/months', function($year) {
+            $months = $this->linkman->api()->contents->monthsCount($year);
+
+            $months = array_map(function($month) {
+                return [
+                    'month' => $month['month'],
+                    'href' => $this->getBaseUrl() . '/calendar/' . $month['year'] . '/months/' . $month['month'],
+                    'days' => [
+                        'href' => $this->getBaseUrl().'/calendar/'.$month['year'].'/months/'.$month['month'].'/days',
+                    ],
+                    'contents' => [
+                        'count' => $month['count'],
+                        'href' => $this->getBaseUrl().'/calendar/'.$month['year'].'/months/'.$month['month'].'/contents',
+                    ],
+                ];
+            }, $months);
+
+            return new JsonResponse($months);
+        });
+
+        $router->get('/calendar/:year/contents', function(Request $request, $year) {
+            $request->getQuery()->add('filter-year', $year);
+            $request->setPath('/api/v1/contents');
+
+            return $this->router->route($request);
+        });
+
+        $router->get('/calendar/:year/months/:month/days', function($year, $month) {
+            // List all days in month
+            $days = $this->linkman->api()->contents->daysCount($year, $month);
+
+            $days = array_map(function($day) {
+                return [
+                    'day' => $day['day'],
+                    'contents' => [
+                        'count' => $day['count'],
+                        'href' => $this->getBaseUrl().'/calendar/'.$day['year'].'/months/'.$day['month'].'/days/'.$day['day'].'/contents',
+                    ]
+                ];
+            }, $days);
+
+            return new JsonResponse($days);
+        });
+
+        $router->get('/calendar/:year/months/:month/contents', function(Request $request, $year, $month) {
+            // List all contents in month
+
+            $request->getQuery()->add('filter-year', $year);
+            $request->getQuery()->add('filter-month', $month);
+            $request->setPath('/api/v1/contents');
+
+            return $this->router->route($request);
+        });
+
+        $router->get('/calendar/:year/months/:month/days/:day/contents', function(Request $request, $year, $month, $day) {
+            // List all contents in month
+
+            // TODO: Add these filter-year, filter-month, filter-day
+            $request->getQuery()->add('filter-year', $year);
+            $request->getQuery()->add('filter-month', $month);
+            $request->getQuery()->add('filter-day', $day);
+
+            $request->setPath('/api/v1/contents');
+
+            return $this->router->route($request);
+        });
+
         $router->get('/contents', function (Request $request) {
             $paginator = $this->linkman->api()->contents->all($request->getQuery()->getAll());
             $pageCount = $request->getInput('pageCount', 10);
@@ -356,34 +444,6 @@ class Kernel
 /*
 TODO: List of endpoints I need
 
-/calendar/
-[
-    {
-        year: 2013,
-        count: ...,
-        href: "..:"
-    }
-]
-
-/calendar/2014
-[
-    {
-        month: 01,
-        href: ...,
-        count:
-    }
-]
-
-/calendar/2014/contents
-[
-    {
-        id: 2,
-        href: "/contents/2",
-        ..
-        ..
-    }
-]
-
 /timeline?start=20-01-2017
 // Groups by day
 // embed: items
@@ -395,16 +455,18 @@ TODO: List of endpoints I need
             count: ..
         },
 
-        content: {
+        main: {
             id: most fav/likes/pop id
         },
 
         albums: [
-
+            href:
+            count: ..
         ]
     }
 ]
 
+/timeline/20-01-2017/albums
 /timeline/20-01-2017/contents
 [
     ...
