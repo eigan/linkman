@@ -3,8 +3,9 @@
 namespace Linkman\Plugin\Action;
 
 use Linkman\Plugin\ContentActionInterface;
-
 use Linkman\Tagservice;
+
+use Traversable;
 
 class Tag implements ContentActionInterface
 {
@@ -25,7 +26,7 @@ class Tag implements ContentActionInterface
         return 'Adds a tag';
     }
 
-    public function execute(array $contents, $argValue)
+    public function execute(Traversable $contents, $argValue)
     {
         foreach ($contents as $content) {
             $this->service->tag($content, $argValue);

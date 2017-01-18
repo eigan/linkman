@@ -1,6 +1,7 @@
 <?php
 
 namespace Linkman\Plugin;
+use Traversable;
 
 interface ContentActionInterface
 {
@@ -8,5 +9,5 @@ interface ContentActionInterface
 
     public function getDescription();
 
-    public function execute(array $contents, $argValue);
+    public function execute(Traversable $contents, $argValue);
 }

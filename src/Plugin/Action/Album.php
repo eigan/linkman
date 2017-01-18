@@ -3,8 +3,9 @@
 namespace Linkman\Plugin\Action;
 
 use Linkman\Api\Api;
-
 use Linkman\Plugin\ContentActionInterface;
+
+use Traversable;
 
 /**
  * Make album out of the selection
@@ -31,7 +32,7 @@ class Album implements ContentActionInterface
         return 'Make album of the selection';
     }
 
-    public function execute(array $contents, $argValue)
+    public function execute(Traversable $contents, $argValue)
     {
         $album = $this->api->albums->create($argValue);
 

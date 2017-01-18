@@ -3,8 +3,9 @@
 namespace Linkman\Plugin\Action;
 
 use Linkman\Fileservice;
-
 use Linkman\Plugin\ContentActionInterface;
+
+use Traversable;
 
 class Rename implements ContentActionInterface
 {
@@ -23,7 +24,7 @@ class Rename implements ContentActionInterface
         return 'Renames the contents';
     }
 
-    public function execute(array $contents, $argValue)
+    public function execute(Traversable $contents, $argValue)
     {
         foreach ($contents as $content) {
             foreach ($content->getFiles() as $file) {
