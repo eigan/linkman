@@ -242,10 +242,22 @@ class Kernel
             $pageCount = $request->getInput('pageCount', 10);
             $currentPage = $request->getInput('page', 1);
 
+            $orderCreatedQuery = $this->linkman->api()->contents->query($request->getQuery()->getAll());
+            $orderCreatedQuery->select('c.createdAt');
+            $orderCreatedQuery->orderBy('c.createdAt', 'asc');
+
+            $orderedContents = $orderCreatedQuery->getQuery()->getScalarResult();
+
+            $first = reset($orderedContents);
+            $last = end($orderedContents);
+
             $paginator->getQuery()->setMaxResults($pageCount);
             $paginator->getQuery()->setFirstResult(($currentPage - 1) * $pageCount);
 
             $response = new PaginatedResponse($paginator, new FileContentFormatter($this->getBaseUrl()));
+
+            $response->getHeaders()->add('X-Content-First', $first['createdAt']);
+            $response->getHeaders()->add('X-Content-Last', $last['createdAt']);
 
             $response->setNextLink($this->getBaseUrl() . '/contents?page='.($currentPage + 1));
 

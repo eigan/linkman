@@ -31,37 +31,26 @@ class FileContentApi
     }
 
     /**
-     * @return FileContent
+     * @return Paginator
      */
-    public function all($query)
+    public function all($query) : Paginator
     {
-        $mount = null;
-        $relativePath = null;
+        $queryBuilder = $this->query($query);
 
-        if (isset($options['path'])) {
-            $mount = $this->resolveMount($options['path']);
-            $relativePath = $this->filesystem($mount)->removePathPrefix($options['path']);
-        }
+        return new Paginator($queryBuilder->getQuery());
+    }
 
+    /**
+     * @return QueryBuilder
+     */
+    public function query($query) : QueryBuilder
+    {
         $queryBuilder = $this->repository->createQueryBuilder('c');
         $this->filter($queryBuilder, $query);
         $queryBuilder->andWhere('c.isHidden = false');
         $queryBuilder->join('c.files', 'f');
 
-        if ($mount && $relativePath) {
-            $queryBuilder->andWhere('f.mount = :mount');
-            $queryBuilder->setParameter('mount', $mount);
-
-            $queryBuilder->andWhere('f.path LIKE :relativePath');
-            $queryBuilder->setParameter('relativePath', "$relativePath%");
-        }
-
-        return new Paginator($queryBuilder->getQuery());
-    }
-
-    public function paginate()
-    {
-        // Return pagination object
+        return $queryBuilder;
     }
 
     /**
