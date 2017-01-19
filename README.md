@@ -74,6 +74,7 @@ An `--output-X` option is required.
 --action-rename=""   Renames the contents
 --action-tag=""      Adds a tag
 --action-untag=""    Remove the tag
+--filter-album=""    Contents with album-id or album-title
 --filter-created=""  Filters by date
 --filter-day=""      Contents on this day
 --filter-limit=""    Limit the results

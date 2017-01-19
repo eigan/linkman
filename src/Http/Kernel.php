@@ -113,10 +113,11 @@ class Kernel
             return new EntityResponse($this->linkman->api()->album($albumId), new AlbumFormatter($this->getBaseUrl()));
         });
 
-        $router->get('/albums/:albumId/contents', function (int $albumId) {
-            $contents = $this->linkman->api()->albums->contents($albumId);
+        $router->get('/albums/:albumId/contents', function (Request $request, int $albumId) {
+            $request->getQuery()->add('filter-album', $albumId);
+            $request->setPath('/api/v1/contents');
 
-            return new PaginatedResponse($contents, new FileContentFormatter($this->getBaseUrl()));
+            return $this->router->route($request);
         });
 
         $router->post('/albums/:albumId/contents', function (Request $request, int $albumId) {

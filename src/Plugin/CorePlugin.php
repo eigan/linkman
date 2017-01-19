@@ -28,6 +28,7 @@ class CorePlugin extends Plugin
 
     public function register($register)
     {
+        $register->use(new Filter\Album());
         $register->use(new Filter\CreatedFilter());
         $register->use(new Filter\Day());
         $register->use(new Filter\Limit());
