@@ -44,9 +44,6 @@ class FileContentFormatter extends AbstractFormatter
 
             'mime' => $fileContent->getFileType(),
 
-            'width' => $fileContent instanceof Photo ? $fileContent->getWidth() : 0,
-            'height' => $fileContent instanceof Photo ? $fileContent->getHeight() : 0,
-
             'hidden' => $fileContent->isHidden(),
 
             'type' => $this->getType($fileContent),
@@ -69,7 +66,9 @@ class FileContentFormatter extends AbstractFormatter
                     'software' => $fileContent->getSoftware(),
                     'exposureTime' => $fileContent->getExposureTime(),
                     'fNumber' => $fileContent->getFnumber(),
-                    'iso' => $fileContent->getIso()
+                    'iso' => $fileContent->getIso(),
+                    'width' => $fileContent->getWidth(),
+                    'height' => $fileContent->getHeight(),
                 ];
             break;
         }
