@@ -462,4 +462,12 @@ class Linkman
             $container->call($callable);
         }
     }
+
+    /**
+     * @access private
+     */
+    public function db()
+    {
+        return $this->entityManager;
+    }
 }
