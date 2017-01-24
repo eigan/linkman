@@ -358,7 +358,7 @@ class Linkman
                     }
                 }
 
-                $this->entityManager->persist($fileContent);
+                $this->contents->persist($fileContent);
 
                 $lastSynced = new DateTime('1900-01-01'); // Never synced..
                 $file = new File($mount, $relativePath, $fileContent, $modifiedAt, $lastSynced);

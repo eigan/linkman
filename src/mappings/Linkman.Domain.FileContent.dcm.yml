@@ -23,6 +23,7 @@ Linkman\Domain\FileContent:
   fields:
     hash:
       type: string
+      unique: true
     modifiedAt:
       type: datetime
     createdAt:
