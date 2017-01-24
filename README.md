@@ -5,12 +5,19 @@ A concept for organizing a large collection of files, mainly photos and videos.
 - Rename project to something that makes sense..
 - Auth
 - Sharing
+- Video support
+- Dynamic albums
+- Nested albums
 - Web api
-- More plugins
 - Write tests
 - Documentation
 - Make it installable
 - Make it updateable
+
+#### After 1.0
+- Face recognition
+- Autotags with Tensorflow plugin or similar
+- Audio support
 
 ## Install
 ```bash
@@ -197,7 +204,6 @@ return [
 
 #### Commands I would like to add.
 ```sh
-albums # As contents, just list albums in a table
 print # Just echo out the content (for piping)
 tags # List all tags and usage
 size-of # Size of a particular folders, num files and store size
@@ -205,8 +211,9 @@ diff # Diff between mounts / Folders
 ls mount:path # List a specific directory
 link # Make a symlink where on you filesystem to a particulr mount:path/file
 serve # Start api with php -S (dev)
-share # Share folder / files
-shares # Everything shared
+share # Share albums
+albums --shared
+compress --format="zip"
 ```
 
 ##### Content options
@@ -229,3 +236,6 @@ shares # Everything shared
 GET /albums/:album/download?format=zip
 GET /albums?first=01-01-2014&last=31-12-2014 # Albums contents within 2014
 ```
+
+### Alternatives
+Lychee
