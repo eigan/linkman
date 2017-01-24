@@ -108,6 +108,7 @@ POST    /api/v1/albums
 GET     /api/v1/albums/:albumId
 GET     /api/v1/albums/:albumId/contents
 POST    /api/v1/albums/:albumId/contents
+DELETE  /api/v1/albums/:albumId/contents
 GET     /api/v1/browse
 GET     /api/v1/calendar
 GET     /api/v1/calendar/:year

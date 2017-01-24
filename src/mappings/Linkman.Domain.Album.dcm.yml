@@ -21,3 +21,4 @@ Linkman\Domain\Album:
     contents:
       targetEntity: Linkman\Domain\FileContent
       inversedBy: albums
+      indexBy: "id"

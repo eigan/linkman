@@ -22,10 +22,10 @@ class AlbumsCommand extends LinkmanCommand
         $albums = $this->linkman->api()->albums();
 
         $table = new Table($output);
-        $table->setHeaders(['Album', 'Num contents']);
+        $table->setHeaders(['ID', 'Album', 'Num contents']);
 
         foreach ($albums as $album) {
-            $table->addRow([$album->getTitle(), count($album->getContents())]);
+            $table->addRow([$album->getId(), $album->getTitle(), count($album->getContents())]);
         }
 
         $table->render();

@@ -142,6 +142,24 @@ class Kernel
             return new Response('', ResponseHeaders::HTTP_CREATED);
         });
 
+        $router->delete('/albums/:albumId/contents', function (Request $request, int $albumId) {
+            $album = $this->linkman->api()->album($albumId);
+
+            $contents = $request->getInput('contents');
+
+            if(!is_array($contents) || empty($contents)) {
+                return new JsonResponse(['message' => "Need 'contents' as array."], ResponseHeaders::HTTP_BAD_REQUEST);
+            }
+
+            foreach($contents as $content) {
+                $album->getContents()->remove($content);
+            }
+
+            $this->linkman->api()->flush();
+
+            return new Response('', ResponseHeaders::HTTP_OK);
+        });
+
         $router->get('/browse', function (Request $request) {
             $options = [
                 'mountId' => $request->getInput('mount'),
