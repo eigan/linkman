@@ -14,10 +14,21 @@ use Linkman\Repositories\FileRepository;
 
 class FileApi
 {
+
+    /**
+     * @var FileRepository
+     */
+    protected $repository;
+
     public function __construct(FilesystemResolver $filesystemResolver, FileRepository $repository)
     {
         $this->resolver = $filesystemResolver;
         $this->repository = $repository;
+    }
+
+    public function query($alias = 'file')
+    {
+        return $this->repository->createQueryBuilder($alias);
     }
 
     /**

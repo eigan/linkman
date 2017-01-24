@@ -15,10 +15,18 @@ class FileFormatter extends AbstractFormatter
     {
         return [
             'id' => $file->getId(),
-            'mount' => (new MountFormatter($this->apiUrl))->format($file->getMount(), $this->embedMode('mount')),
 
             'path' => $file->getPath(),
-            'directoryPath' => $file->getDirectoryPath()
+            'directoryPath' => $file->getDirectoryPath(),
+            'duplicates' => [
+                'count' => count($file->getContent()->getFiles()),
+                'href' => $this->getBaseUrl() . '?content=' . $file->getContent()->getId()
+            ],
+            'content' => [
+                'id' => $file->getContent()->getId(),
+                'href' => $this->apiUrl . '/contents/' . $file->getContent()->getId()
+            ],
+            'mount' => (new MountFormatter($this->apiUrl))->format($file->getMount(), $this->embedMode('mount')),
         ];
     }
 }

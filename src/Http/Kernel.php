@@ -2,8 +2,10 @@
 
 namespace Linkman\Http;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Exception;
 use Intervention\Image\ImageManager;
+use Linkman\Domain\Photo;
 use Linkman\Http\Formatter\Domain\AlbumFormatter;
 use Linkman\Http\Formatter\Domain\FileContentFormatter;
 use Linkman\Http\Formatter\Domain\FileFormatter;
@@ -382,12 +384,43 @@ class Kernel
         });
 
         $router->get('/files', function (Request $request) {
+            $fetchJoinCollection = true;
+
             $options = [
                 'mountId' => $request->getInput('mount'),
-                'path' => $request->getInput('path', '/')
+                'path' => ltrim($request->getInput('path', ''), '/'),
+                'duplicates' => $request->getInput('duplicates', 0),
+                'content' => $request->getInput('content', null)
             ];
 
-            return new CollectionResponse($this->linkman->api()->files($options['mountId'], $options['path']), new FileFormatter($this->getBaseUrl()));
+            $query = $this->linkman->api()->files->query();
+
+            if($options['mountId']) {
+                $query->andWhere('file.mount = :mount');
+                $query->setParameter('mount', $options['mountId']);
+            }
+
+            if($options['path']) {
+                $query->andWhere($query->expr()->like('file.path', ':path'));
+                $query->setParameter('path', $options['path'].'%');
+            }
+
+            if($options['content']) {
+                $query->andWhere('file.content = :contentId');
+                $query->setParameter('contentId', $options['content']);
+            }
+
+            if($options['duplicates']) {
+                $query->join('file.content', 'content');
+                $fetchJoinCollection = false;
+                $query->groupBy('content.hash');
+
+                $query->having('count(content.hash) > 1');
+            }
+
+            $paginator = new Paginator($query->getQuery(), $fetchJoinCollection);
+
+            return new PaginatedResponse($paginator, new FileFormatter($this->getBaseUrl()));
         });
 
         $router->get('/files/:fileId', function ($fileId) {
