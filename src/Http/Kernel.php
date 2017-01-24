@@ -139,7 +139,7 @@ class Kernel
             $album->addContent($content);
             $this->linkman->api()->flush();
 
-            return new Response();
+            return new Response('', ResponseHeaders::HTTP_CREATED);
         });
 
         $router->get('/browse', function (Request $request) {
@@ -347,6 +347,10 @@ class Kernel
 
             if ($content === null) {
                 return new Response('', ResponseHeaders::HTTP_NOT_FOUND);
+            }
+
+            if($content instanceof Photo === false) {
+                return new Response('', ResponseHeaders::HTTP_UNSUPPORTED_MEDIA_TYPE);
             }
 
             $content = $this->linkman->api()->content($contentId);
