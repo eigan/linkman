@@ -1,6 +1,15 @@
 # Linkman
 A concept for organizing a large collection of files, mainly photos and videos.
 
+## Note
+This is just me trying out:
+- Application architecture
+- Plugin/hook stuff
+- REST API Design
+- Console interactions
+- Unit testing
+- Open Source
+
 #### Things to do before 1.0
 - Rename project to something that makes sense..
 - Auth
@@ -210,8 +219,8 @@ tags # List all tags and usage
 size-of # Size of a particular folders, num files and store size
 diff # Diff between mounts / Folders
 ls mount:path # List a specific directory
-link # Make a symlink where on you filesystem to a particulr mount:path/file
-serve # Start api with php -S (dev)
+link # Make a symlink to a particular mount:path/file
+serve # Starts api with php -S (dev)
 share # Share albums
 albums --shared
 compress --format="zip"
@@ -227,6 +236,7 @@ compress --format="zip"
 --action-copy # Copy all files
 --action-hide
 --action-tag-remove
+--action-link="./" # Make hardlinks into ./
 
 --output-gif="[fps]" # Make a gif of the selection
 --output-compress="zip"
@@ -235,8 +245,5 @@ compress --format="zip"
 ##### Api endpoints
 ```sh
 GET /albums/:album/download?format=zip
-GET /albums?first=01-01-2014&last=31-12-2014 # Albums contents within 2014
+GET /albums?first=01-01-2014&last=31-12-2014 # Albums in 2014
 ```
-
-### Alternatives
-Lychee
