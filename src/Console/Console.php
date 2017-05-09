@@ -10,6 +10,7 @@ use Linkman\Console\Command\HooksCommand;
 use Linkman\Console\Command\InitCommand;
 
 use Linkman\Console\Command\MountCommand;
+use Linkman\Console\Command\ServeCommand;
 use Linkman\Console\Command\MountsCommand;
 
 use Linkman\Console\Command\SyncCommand;
@@ -61,6 +62,7 @@ class Console extends Application
             $commands[] = new ContentsCommand($this->linkman);
             $commands[] = new MountCommand($this->linkman);
             $commands[] = new SyncCommand($this->linkman);
+            $commands[] = new ServeCommand($this->linkman);
         }
 
         return $commands;

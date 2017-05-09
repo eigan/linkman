@@ -109,7 +109,7 @@ An `--output-X` option is required.
 ```
 
 ### Current API
-Start dev API server with `php -S localhost:8080 public/api.php`.
+Start dev API server with `bin/linkman serve`.
 ```
 GET     /api/v1
 GET     /api/v1/albums
