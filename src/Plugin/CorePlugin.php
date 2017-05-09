@@ -31,6 +31,7 @@ class CorePlugin extends Plugin
         $register->use(new Filter\Album());
         $register->use(new Filter\CreatedFilter());
         $register->use(new Filter\Day());
+        $register->use(new Filter\Duplicated());
         $register->use(new Filter\Limit());
         $register->use(new Filter\Name());
         $register->use(new Filter\Offset());
